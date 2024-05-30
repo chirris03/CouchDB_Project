@@ -1,0 +1,130 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Stats</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #2E865F; /* Dark green background color */
+        }
+        .container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .table {
+    width: 100%;
+    border-collapse: collapse;
+        }
+       .table th,.table td {
+            vertical-align: middle;
+        }
+       .table thead th {
+            background-color: #3E8E41; /* Darker green background for the table header */
+            color: #FFFFFF;
+        }
+       .table tbody tr:nth-child(even) {
+            background-color: #F7F7F7; /* Light gray background for even rows */
+        }
+       .table tbody tr:hover {
+            background-color: #CCCCCC; /* Light gray background on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% if error_message %}
+            <div class="alert alert-danger" role="alert">
+                {{ error_message }}
+            </div>
+        {% else %}
+            <h1 class="text-primary">{{ player.nombre }} {{ player.apellido }}</h1>
+            <p><strong>Posición:</strong> {{ player.posición }}</p>
+            <p><strong>Edad:</strong> {{ player.edad }}</p>
+
+            {% if hitter_stats|length > 0 %}
+                <h2 class="text-success">Estadísticas del Bateador</h2>
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Juego</th>
+                            <th>Hits</th>
+                            <th>Carreras Anotadas</th>
+                            <th>Carreras Impulsadas</th>
+                            <th>Bases por Bolas</th>
+                            <th>Ponches</th>
+                            <th>Bases Robadas</th>
+                            <th>Bases Defendidas</th>
+                            <th>Turnos al Bate</th>
+                            <th>Carreras Impulsadas de Home Runs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in hitter_stats %}
+                            <tr>
+                                <td>{{ stat.partido.fecha }}</td>
+                                <td>{{ stat.hits }}</td>
+                                <td>{{ stat.carreras_anotadas }}</td>
+                                <td>{{ stat.carreras_impulsadas }}</td>
+                                <td>{{ stat.bases_por_bolas }}</td>
+                                <td>{{ stat.ponches }}</td>
+                                <td>{{ stat.bases_robadas }}</td>
+                                <td>{{ stat.bases_defendidas }}</td>
+                                <td>{{ stat.turnos_al_bate }}</td>
+                                <td>{{ stat.home_runs_impulsados }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+
+            {% if pitcher_stats|length > 0 %}
+                <h2 class="text-success">Estadísticas del Lanzador</h2>
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Juego</th>
+                            <th>Innings Lanzados</th>
+                            <th>Hits Permitidos</th>
+                            <th>Carreras Permitidas</th>
+                            <th>Bases por Bolas</th>
+                            <th>Ponches</th>
+                            <th>Home Runs Permitidos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in pitcher_stats %}
+                            <tr>
+                                <td>{{ stat.partido.fecha }}</td>
+                                <td>{{ stat.innings_lanzado }}</td>
+                                <td>{{ stat.hits_permitidos }}</td>
+                                <td>{{ stat.carreras }}</td>
+                                <td>{{ stat.bases_por_bola }}</td>
+                                <td>{{ stat.ponches }}</td>
+                                <td>{{ stat.home_runs }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif%}
+        {% endif %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+

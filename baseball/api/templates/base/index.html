@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Baseball Stats App</title>
+    <style>
+        body {
+            background-color: #2E865F; /* Dark green background color */
+            color: #FFFFFF; /* White text color */
+            font-family: Arial, sans-serif; /* Font style */
+            padding: 20px; /* Add some padding for better readability */
+        }
+        h1 {
+            text-align: center; /* Center align the heading */
+        }
+        ul {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0; /* Remove default padding */
+            margin: 0; /* Remove default margin */
+        }
+        li {
+            background-color: #3E8E41; /* Darker green background color for list items */
+            padding: 10px 20px; /* Add padding to each list item */
+            margin-bottom: 10px; /* Add some space between list items */
+            border-radius: 5px; /* Add rounded corners */
+            transition: background-color 0.3s; /* Smooth transition for hover effect */
+        }
+        li a {
+            color: #FFFFFF; /* White text color for links */
+            text-decoration: none; /* Remove underline from links */
+        }
+        li:hover {
+            background-color: #4CAF50; /* Lighter green background color on hover */
+        }
+        /* Style for statistics */
+        .statistics-container {
+            margin-top: 30px; /* Add space between team list and statistics */
+            padding: 20px; /* Add padding to the statistics container */
+            background-color: #3E8E41; /* Darker green background color */
+            border-radius: 5px; /* Add rounded corners */
+        }
+        .statistics-heading {
+            text-align: center; /* Center align the statistics heading */
+            margin-bottom: 10px; /* Add some space below the heading */
+        }
+        .statistics {
+            text-align: center; /* Center align the statistics */
+        }
+    </style>
+</head>
+<body>
+    <h1>Bienvenidos al portal de la liga</h1>
+    <ul>
+        {% for team in teams %}
+            <li>
+                <a href="{% url 'team_detail' team.id_equipo %}">{{ team.nombre }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Statistics Section -->
+    <div class="statistics-container">
+        <h2 class="statistics-heading">Estadísticas</h2>
+        <div class="statistics">
+            <p>Mejor Promedio de Bateo: {{ statistics.mejor_promedio_bateo }}</p>
+            <p>Mejor Porcentaje de Bases Robadas: {{ statistics.mejor_sbp }}</p>
+            <p>Menor ERA: {{ statistics.menor_era }}</p>
+        </div>
+    </div>
+</body>
+</html>
